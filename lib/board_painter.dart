@@ -18,10 +18,9 @@ class BoardPainter extends CustomPainter{
 
   List<Hexagon> hexagons = new List();
 
-
   void paint(Canvas canvas, Size size) {
 
-    print(size);
+    canvas.drawRect(Rect.fromPoints(Offset(0,0),Offset(size.width, size.height)) ,Paint()..color = Colors.green );
 
 
     game.board.tiles.forEach((t) => hexagons.add(Hexagon(ui, game, size,t)));
@@ -29,6 +28,7 @@ class BoardPainter extends CustomPainter{
     hexagons.forEach((h) => h.draw(canvas));
 
 
+    hexagons.forEach((h) => h.drawLetter(canvas));
   }
 
 

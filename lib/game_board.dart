@@ -23,7 +23,10 @@ class GameBoardState extends State<GameBoard>{
   FlutterInterface ui;
   SW.Game game;
 
-  GameBoardState(this.ui, this. game);
+  GameBoardState(this.ui, this. game){
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +34,15 @@ class GameBoardState extends State<GameBoard>{
     return Container(
       width: 600,
       height: 800,
+      color: Colors.green,
 
       child: Stack(
         children: <Widget>[
           // Max Size
-          CustomPaint(
-            size: Size(600, 800),
-            painter: BoardPainter(ui, game),
+          Stack(
+
+
+
           ),
           
           Positioned(

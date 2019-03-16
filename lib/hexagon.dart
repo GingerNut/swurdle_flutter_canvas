@@ -1,12 +1,12 @@
 
-import 'dart:ui';
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:swurdle_flutter_canvas/flutter_interface.dart';
 import 'package:swurdlelogic/swurdlelogic.dart' as SW;
 
 
-class Hexagon{
+class Hexagon extends CustomPaint{
 
   FlutterInterface ui;
   SW.Game game;
@@ -22,29 +22,54 @@ class Hexagon{
 
     setVariables();
 
-
-
-
   }
 
 
 
 
-
-
+  bool pointInside(Offset offset) => (offset.dx > homeX - hexSize
+        && offset.dx < homeX + hexSize
+        && offset.dy > homeY - hexSize
+        && offset.dy < homeY + hexSize
+    );
 
 
   draw(Canvas canvas){
 
     final paint = Paint();
 
-    paint.color = Colors.deepOrange;
+    paint.color = Colors.amberAccent;
 
     var center = Offset(homeX, homeY);
 
     canvas.drawCircle(center, hexSize, paint);
 
   }
+
+  drawLetter(Canvas canvas){
+
+    final paint = Paint();
+
+    paint.color = Colors.brown;
+
+    final paragraphStyle = new ParagraphStyle(
+      fontSize: hexSize,
+      textAlign: TextAlign.center,
+    );
+
+    final paragraphBuilder = new ParagraphBuilder(paragraphStyle)
+
+      ..addText(game.position.letters[tile.k]);
+
+    final paragraph = paragraphBuilder.build();
+    paragraph.layout(ParagraphConstraints(width: 0));
+
+
+    final offset = new Offset(homeX, homeY - hexSize/2);
+    canvas.drawParagraph(paragraph, offset);
+  }
+
+
 
 
 
@@ -68,7 +93,7 @@ class Hexagon{
     double horizontalPadding = (size.width - hexagonSpacingHorizontal * ui.game.size)/2;
     double verticalPadding = (size.height - hexagonSpacingVertical * ui.game.size)/2 ;
 
-
+    hexSize *= 1.5;
 
     homeX = tile.i * hexagonSpacingHorizontal + hexagonSpacingHorizontal ;
     homeY = tile.j * hexagonSpacingVertical + hexagonSpacingVertical ;
